@@ -4,14 +4,14 @@ const { SALT_ROUNDS } = require('../constants/constants')
 const { generateToken } = require('../utils/jwt')
 const NotFoundError = require('../errors/not-found')
 const UnauthorizedError = require('../errors/unauthorized')
-const user = require('../models/user')
+const User = require('../models/Users')
 
 const createUser = async (req, res, next) => {
   try {
     // хешируем пароль
     const { name, email, password } = req.body
     const hash = await bcrypt.hash(password, SALT_ROUNDS)
-    const newUser = await user.create({
+    const newUser = await User.create({
       name,
       email,
       password: hash,
