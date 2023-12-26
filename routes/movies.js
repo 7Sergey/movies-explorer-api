@@ -14,19 +14,21 @@ movieRouter.post(
     body: Joi.object().keys({
       country: Joi.string().required().min(2).max(30),
       director: Joi.string().required().min(2).max(30),
-      duration: Joi.number().required().min(2).max(30),
+      duration: Joi.string().required().min(2).max(30),
       year: Joi.string().required().min(2).max(30),
       description: Joi.string().required().min(2).max(30),
 
-      image: Joi.string().pattern(
-        /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/,
-      ),
-      trailerLink: Joi.string().pattern(
-        /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/,
-      ),
-      thumbnail: Joi.string().pattern(
-        /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/,
-      ),
+      // image: Joi.string().pattern(
+      //   /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/,
+      // ),
+      // trailerLink: Joi.string().pattern(
+      //   /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/,
+      // ),
+      // thumbnail: Joi.string().pattern(
+      //   /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/,
+      // ),
+      // nameRU: Joi.string().required().min(2).max(30),
+      // nameEN: Joi.string().required().min(2).max(30),
     }),
   }),
   createMovie,

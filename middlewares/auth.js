@@ -1,7 +1,9 @@
-const jwt = require('jsonwebtoken') // импортируем модуль jsonwebtoken
+const jwt = require('jsonwebtoken')
 const UnauthorizedError = require('../errors/unauthorized')
+require('dotenv').config() // Подключаем переменные окружения из файла .env
 
-const { SECRET_KEY, NODE_ENV } = process.env
+const { JWT_SECRET, NODE_ENV } = process.env
+
 function auth(req, res, next) {
   try {
     const token = req.cookies.userToken
@@ -15,7 +17,7 @@ function auth(req, res, next) {
     // Добавлена проверка наличия строки "Bearer "
     const payload = jwt.verify(
       validToken,
-      NODE_ENV !== 'production' ? SECRET_KEY : 'dev_secret',
+      NODE_ENV !== 'production' ? JWT_SECRET : 'dev_secret',
     )
 
     // Присваиваем айди пользователя для удаления/добавления лайков
@@ -31,6 +33,7 @@ function auth(req, res, next) {
     }
   }
 }
+
 module.exports = {
   auth,
 }

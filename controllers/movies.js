@@ -9,11 +9,37 @@ const getMovies = async (req, res, next) => {
     })
     .catch(next)
 }
+//  country, director, duration, year, description, image, trailer, nameRU, nameEN и thumbnail, movieId
 
 const createMovie = async (req, res, next) => {
-  const { name, link } = req.body
-  const owner = req.user._id
-  Movie.create({ name, link, owner })
+  const {
+    country,
+    director,
+    duration,
+    year,
+    description,
+    // image,
+    // trailer,
+    // nameRU,
+    // nameEN,
+    // thumbnail,
+    // movieId,
+  } = req.body
+  // const owner = req.user._id
+  Movie.create({
+    country,
+    director,
+    duration,
+    year,
+    description,
+    // image,
+    // trailer,
+    // nameRU,
+    // nameEN,
+    // thumbnail,
+    // movieId,
+    // owner,
+  })
     .then((movie) => {
       res.send({ data: movie })
     })
@@ -42,44 +68,9 @@ const deleteMovie = (req, res, next) => {
     })
     .catch(next)
 }
-const likeMovie = async (req, res, next) => {
-  Movie.findByIdAndUpdate(
-    req.params.idMovie,
-    { $addToSet: { likes: req.user._id } },
-    { new: true },
-  )
-    .then((movie) => {
-      if (!movie) {
-        const err = new NotFoundError('Карта не найдена')
-        next(err)
-        return
-      }
-      res.send({ data: movie })
-    })
-    .catch(next)
-}
-
-const dislikeMovie = async (req, res, next) => {
-  Movie.findByIdAndUpdate(
-    req.params.idMovie,
-    { $pull: { likes: req.user._id } },
-    { new: true },
-  )
-    .then((movie) => {
-      if (!movie) {
-        const err = new NotFoundError('Карта не найдена')
-        next(err)
-        return
-      }
-      res.send({ data: movie })
-    })
-    .catch(next)
-}
 
 module.exports = {
   getMovies,
   createMovie,
   deleteMovie,
-  likeMovie,
-  dislikeMovie,
 }

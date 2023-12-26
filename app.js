@@ -69,6 +69,7 @@ app.use((error, req, res, next) => {
     message: statusCode === 500 ? 'На сервере произошла ошибка' : message,
   })
 })
+
 app.listen(3000, () => {
   console.log('Сервер запущен')
 })

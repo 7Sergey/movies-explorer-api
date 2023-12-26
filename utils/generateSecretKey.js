@@ -1,4 +1,3 @@
-// generateSecretKey.js
 const crypto = require('crypto')
 
 const generateRandomKey = () => {

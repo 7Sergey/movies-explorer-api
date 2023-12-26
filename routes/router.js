@@ -10,11 +10,6 @@ const NotFoundError = require('../errors/not-found')
 
 const router = express.Router()
 
-router.get('/crash-test', () => {
-  setTimeout(() => {
-    throw new Error('Сервер сейчас упадёт')
-  }, 0)
-})
 // роуты логина и регистрации
 router.post(
   '/signin',
@@ -34,10 +29,6 @@ router.post(
       email: Joi.string().required().min(2).max(30),
       password: Joi.string().required().min(8),
       name: Joi.string().min(2).max(30),
-      about: Joi.string().min(2).max(30),
-      avatar: Joi.string().pattern(
-        /^(https?:\/\/)www\.[a-zA-Z0-9-._~:/?#[\]@!$&'()*+,;=,]+#?$/,
-      ),
     }),
   }),
   createUser,
