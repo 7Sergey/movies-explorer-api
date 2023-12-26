@@ -1,20 +1,18 @@
 const bcrypt = require('bcryptjs') // импортируем bcrypt
-const User = require('../models/User')
 
 const { SALT_ROUNDS } = require('../constants/constants')
 const { generateToken } = require('../utils/jwt')
 const NotFoundError = require('../errors/not-found')
 const UnauthorizedError = require('../errors/unauthorized')
+const user = require('../models/user')
 
 const createUser = async (req, res, next) => {
   try {
     // хешируем пароль
-    const { name, about, avatar, email, password } = req.body
+    const { name, email, password } = req.body
     const hash = await bcrypt.hash(password, SALT_ROUNDS)
-    const newUser = await User.create({
+    const newUser = await user.create({
       name,
-      about,
-      avatar,
       email,
       password: hash,
     })
@@ -23,8 +21,6 @@ const createUser = async (req, res, next) => {
     const userWithoutHash = {
       _id: newUser._id,
       name: newUser.name,
-      about: newUser.about,
-      avatar: newUser.avatar,
       email: newUser.email,
     }
     // вернем пользователя без хеша

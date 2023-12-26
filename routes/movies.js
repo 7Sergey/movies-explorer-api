@@ -18,17 +18,17 @@ movieRouter.post(
       year: Joi.string().required().min(2).max(30),
       description: Joi.string().required().min(2).max(30),
 
-      // image: Joi.string().pattern(
-      //   /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/,
-      // ),
-      // trailerLink: Joi.string().pattern(
-      //   /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/,
-      // ),
-      // thumbnail: Joi.string().pattern(
-      //   /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/,
-      // ),
-      // nameRU: Joi.string().required().min(2).max(30),
-      // nameEN: Joi.string().required().min(2).max(30),
+      image: Joi.string().pattern(
+        /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/,
+      ),
+      trailerLink: Joi.string().pattern(
+        /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/,
+      ),
+      thumbnail: Joi.string().pattern(
+        /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/,
+      ),
+      nameRU: Joi.string().required().min(2).max(30),
+      nameEN: Joi.string().required().min(2).max(30),
     }),
   }),
   createMovie,

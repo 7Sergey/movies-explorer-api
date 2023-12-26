@@ -18,27 +18,27 @@ const createMovie = async (req, res, next) => {
     duration,
     year,
     description,
-    // image,
-    // trailer,
-    // nameRU,
-    // nameEN,
-    // thumbnail,
+    image,
+    trailerLink,
+    nameRU,
+    nameEN,
+    thumbnail,
     // movieId,
   } = req.body
-  // const owner = req.user._id
+  const owner = req.user._id
   Movie.create({
     country,
     director,
     duration,
     year,
     description,
-    // image,
-    // trailer,
-    // nameRU,
-    // nameEN,
-    // thumbnail,
+    image,
+    trailerLink,
+    nameRU,
+    nameEN,
+    thumbnail,
     // movieId,
-    // owner,
+    owner,
   })
     .then((movie) => {
       res.send({ data: movie })
