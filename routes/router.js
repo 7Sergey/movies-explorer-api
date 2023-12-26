@@ -33,6 +33,12 @@ router.post(
   }),
   createUser,
 )
+
+router.post('/signout', (req, res) => {
+  // Удаляем куку с токеном
+  res.clearCookie('userToken')
+  res.status(200).send({ message: 'Вы успешно вышли' })
+})
 // защищенные роуты ниже
 router.use(auth)
 router.use('/users', userRouter)

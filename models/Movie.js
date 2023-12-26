@@ -61,7 +61,7 @@ const movieSchema = new mongoose.Schema(
     movieId: {
       // id фильма, который содержится в ответе сервиса MoviesExplorer.
       type: Number,
-      ref: 'user',
+
       required: true,
     },
     nameRU: {
@@ -84,11 +84,11 @@ const movieSchema = new mongoose.Schema(
           `${props.value} не является корректным значением для nameEN!`,
       },
     },
-    // createdAt: {
-    //   //  дата создания
-    //   type: Date,
-    //   default: Date.now,
-    // },
+    createdAt: {
+      //  дата создания
+      type: Date,
+      default: Date.now,
+    },
   },
   {
     versionKey: false, // не отслеживать версию схемы во время создания карточки

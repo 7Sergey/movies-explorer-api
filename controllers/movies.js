@@ -23,9 +23,10 @@ const createMovie = async (req, res, next) => {
     nameRU,
     nameEN,
     thumbnail,
-    // movieId,
+    movieId,
   } = req.body
   const owner = req.user._id
+  console.log(owner)
   Movie.create({
     country,
     director,
@@ -37,7 +38,7 @@ const createMovie = async (req, res, next) => {
     nameRU,
     nameEN,
     thumbnail,
-    // movieId,
+    movieId,
     owner,
   })
     .then((movie) => {
