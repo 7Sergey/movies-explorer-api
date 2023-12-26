@@ -25,6 +25,7 @@ const createMovie = async (req, res, next) => {
     thumbnail,
     movieId,
   } = req.body
+
   const owner = req.user._id
   console.log(owner)
   Movie.create({
