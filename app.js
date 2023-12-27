@@ -5,7 +5,7 @@ const helmet = require('helmet')
 const cookieParser = require('cookie-parser')
 require('dotenv').config() // Подключаем переменные окружения из файла .env
 
-const { PORT, MONGO_URL } = process.env
+const { PORT = 3001, MONGO_URL } = process.env
 const { requestLogger, errorLogger } = require('./middlewares/logger')
 const router = require('./routes/router')
 const limiter = require('./middlewares/rateLimiter')
