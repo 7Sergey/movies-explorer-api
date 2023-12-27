@@ -1,9 +1,9 @@
 const jwt = require('jsonwebtoken') // импортируем модуль jsonwebtoken
 
-const { SECRET_KEY, NODE_ENV } = process.env
+const { JWT_SECRET, NODE_ENV } = process.env
 
 const generateToken = (payloader) => {
-  return jwt.sign(payloader, NODE_ENV ? SECRET_KEY : 'dev_secret', {
+  return jwt.sign(payloader, NODE_ENV ? JWT_SECRET : 'dev_secret', {
     expiresIn: 3600,
   })
 }
