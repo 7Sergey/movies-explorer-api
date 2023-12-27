@@ -7,14 +7,15 @@ const cookieParser = require('cookie-parser')
 
 const { requestLogger, errorLogger } = require('./middlewares/logger')
 const router = require('./routes/router')
+require('dotenv').config() // Подключаем переменные окружения из файла .env
 
+const { PORT, MONGO_URL } = process.env
+console.log(MONGO_URL)
 const {
   CLIENT_ERROR_CODE,
   MONGO_DUPLICATE_ERROR_CODE,
   CONFLICT_ERROR_CODE,
 } = require('./constants/constants')
-
-require('dotenv').config() // Подключаем переменные окружения из файла .env
 
 const app = express()
 const limiter = rateLimit({
@@ -25,7 +26,8 @@ const limiter = rateLimit({
 
 // Подключаем rate limiter к всем запросам
 app.use(limiter)
-mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb')
+mongoose.connect(MONGO_URL)
+// mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb')
 
 app.use(requestLogger) // подключаем логгер запросов
 
@@ -70,6 +72,6 @@ app.use((error, req, res, next) => {
   })
 })
 
-app.listen(3000, () => {
-  console.log('Сервер запущен')
+app.listen(PORT, () => {
+  console.log(`Сервер запущен и использует ${PORT} порт`)
 })

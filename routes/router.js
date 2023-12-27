@@ -34,15 +34,16 @@ router.post(
   createUser,
 )
 
+// защищенные роуты ниже
+router.use(auth)
+router.use('/users', userRouter)
+router.use('/movies', movieRouter)
+
 router.post('/signout', (req, res) => {
   // Удаляем куку с токеном
   res.clearCookie('userToken')
   res.status(200).send({ message: 'Вы успешно вышли' })
 })
-// защищенные роуты ниже
-router.use(auth)
-router.use('/users', userRouter)
-router.use('/movies', movieRouter)
 
 router.use((req, res, next) => {
   const err = new NotFoundError('Такой страницы не существует')
