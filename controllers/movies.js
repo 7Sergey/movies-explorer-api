@@ -3,13 +3,12 @@ const NotFoundError = require('../errors/not-found')
 const Movie = require('../models/Movie')
 
 const getMovies = async (req, res, next) => {
-  Movie.find({})
+  Movie.find({ owner: req.user._id }) // выводит только фильмы текущего пользователя
     .then((movies) => {
       res.send(movies)
     })
     .catch(next)
 }
-//  country, director, duration, year, description, image, trailer, nameRU, nameEN и thumbnail, movieId
 
 const createMovie = async (req, res, next) => {
   const {
@@ -26,7 +25,6 @@ const createMovie = async (req, res, next) => {
     movieId,
   } = req.body
   const owner = req.user._id
-  console.log(owner)
   Movie.create({
     country,
     director,
