@@ -41,11 +41,11 @@ router.use('/users', userRouter)
 router.use('/movies', movieRouter)
 router.use('/signout', signoutRouter)
 
-router.post('/signout', (req, res) => {
-  // Удаляем куку с токеном
-  res.clearCookie('userToken')
-  res.status(200).send({ message: 'Вы успешно вышли' })
-})
+// router.post('/signout', (req, res) => {
+//   // Удаляем куку с токеном
+//   res.clearCookie('userToken')
+//   res.status(200).send({ message: 'Вы успешно вышли' })
+// })
 router.use((req, res, next) => {
   const err = new NotFoundError('Такой страницы не существует')
   next(err)

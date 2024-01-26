@@ -33,7 +33,7 @@ const createUser = async (req, res, next) => {
 const patchUser = async (req, res, next) => {
   User.findByIdAndUpdate(
     req.user._id,
-    { name: req.body.name, password: req.body.password },
+    { name: req.body.name, email: req.body.email },
     { new: true, runValidators: true },
   )
     .then((updatedUser) => {

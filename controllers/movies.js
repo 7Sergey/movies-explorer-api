@@ -2,8 +2,9 @@ const Forbidden = require('../errors/forbidden')
 const NotFoundError = require('../errors/not-found')
 const Movie = require('../models/Movie')
 
+// возвращает все сохранённые текущим пользователем фильмы
 const getMovies = async (req, res, next) => {
-  Movie.find({ owner: req.user._id }) // выводит только фильмы текущего пользователя
+  Movie.find({ owner: req.user._id })
     .then((movies) => {
       res.send(movies)
     })
