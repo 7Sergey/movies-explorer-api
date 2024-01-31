@@ -14,6 +14,10 @@ const router = express.Router()
 // роуты логина и регистрации
 router.post(
   '/signin',
+  (req, res, next) => {
+    console.log('Received request data:', req.body) // Вывод данных в консоль
+    next() // Переход к следующему middleware (в данном случае - celebrate)
+  },
   celebrate({
     body: Joi.object().keys({
       email: Joi.string().required().min(2).max(30),
@@ -41,11 +45,6 @@ router.use('/users', userRouter)
 router.use('/movies', movieRouter)
 router.use('/signout', signoutRouter)
 
-// router.post('/signout', (req, res) => {
-//   // Удаляем куку с токеном
-//   res.clearCookie('userToken')
-//   res.status(200).send({ message: 'Вы успешно вышли' })
-// })
 router.use((req, res, next) => {
   const err = new NotFoundError('Такой страницы не существует')
   next(err)

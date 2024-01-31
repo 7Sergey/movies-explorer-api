@@ -7,7 +7,7 @@ const { JWT_SECRET, NODE_ENV } = process.env
 function auth(req, res, next) {
   try {
     const token = req.cookies.userToken
-    console.log(token)
+
     if (!token) {
       throw new UnauthorizedError('NotAuthenticate')
     }

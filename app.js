@@ -4,6 +4,7 @@ const { errors } = require('celebrate')
 const helmet = require('helmet')
 const rateLimit = require('express-rate-limit')
 const cookieParser = require('cookie-parser')
+const corsMiddleware = require('./middlewares/cors') // Используем новый middleware для CORS
 
 const { requestLogger, errorLogger } = require('./middlewares/logger')
 const router = require('./routes/router')
@@ -24,6 +25,8 @@ const limiter = rateLimit({
   max: 100, // Максимальное количество запросов за указанный период
   message: 'Превышен лимит запросов, пожалуйста, подождите некоторое время.',
 })
+
+app.use(corsMiddleware) // Используем middleware для CORS
 
 // Подключаем rate limiter к всем запросам
 app.use(limiter)
