@@ -19,7 +19,7 @@ const {
 
 require('dotenv').config() // Подключаем переменные окружения из файла .env
 
-const { MONGO_URL, PORT } = process.env
+const { MONGO_URL, PORT = 3000 } = process.env
 
 const app = express()
 const limiter = rateLimit({
