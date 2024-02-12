@@ -28,7 +28,14 @@ const limiter = rateLimit({
   message: 'Превышен лимит запросов, пожалуйста, подождите некоторое время.',
 })
 
-app.use(cors()) // Используем CORS
+// app.use(cors()) // Используем CORS
+
+app.use(
+  cors({
+    origin: 'http://localhost:3000',
+    credentials: true, // разрешает отправку куки и заголовков авторизации
+  }),
+)
 
 // Подключаем rate limiter к всем запросам
 app.use(limiter)
