@@ -6,26 +6,22 @@ const { JWT_SECRET, NODE_ENV } = process.env
 
 function auth(req, res, next) {
   try {
-    const token = req.cookies.userToken
-
-    if (!token) {
+    const authHeader = req.headers.authorization
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
       throw new UnauthorizedError('NotAuthenticate')
     }
 
-    const validToken = token.replace('Bearer ', '')
+    const token = authHeader.replace('Bearer ', '')
 
-    // Добавлена проверка наличия строки "Bearer "
     const payload = jwt.verify(
-      validToken,
+      token,
       NODE_ENV !== 'production' ? JWT_SECRET : 'dev_secret',
     )
 
-    // Присваиваем айди пользователя для удаления/добавления лайков
     req.user = payload
     next()
   } catch (error) {
     if (error instanceof jwt.JsonWebTokenError) {
-      // Обработка ошибки верификации токена
       const err = new UnauthorizedError('InvalidToken')
       next(err)
     } else {
