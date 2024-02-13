@@ -74,13 +74,13 @@ const login = (req, res, next) => {
       }
 
       const token = generateToken({ _id: foundUser._id })
-      res.cookie('userToken', token, {
-        httpOnly: true,
-        sameSite: true,
-        // срок действия токена 1 неделя
-        maxAge: 7 * 24 * 60 * 60 * 1000,
-      })
-      res.send({ email: foundUser.email })
+      // res.cookie('userToken', token, {
+      //   httpOnly: true,
+      //   sameSite: true,
+      //   // срок действия токена 1 неделя
+      //   maxAge: 7 * 24 * 60 * 60 * 1000,
+      // })
+      res.send({ email: foundUser.email, token })
     })
     .catch(next)
 }

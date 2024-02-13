@@ -28,7 +28,17 @@ const limiter = rateLimit({
   message: 'Превышен лимит запросов, пожалуйста, подождите некоторое время.',
 })
 
-app.use(cors()) // Используем CORS
+app.use(
+  cors({
+    origin: [
+      'http://localhost:3000',
+      'http://localhost:3001',
+      'http://fedorov.movies.nomoredomainswork.ru',
+      'http://api.fedorov.movies.nomoredomainswork.ru',
+    ],
+    credentials: true,
+  }),
+)
 
 // Подключаем rate limiter к всем запросам
 app.use(limiter)
