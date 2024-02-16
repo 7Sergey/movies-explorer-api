@@ -19,7 +19,7 @@ const {
 
 require('dotenv').config() // Подключаем переменные окружения из файла .env
 
-// const { MONGO_URL, PORT } = process.env
+const { MONGO_URL, PORT } = process.env
 
 const app = express()
 const limiter = rateLimit({
@@ -41,7 +41,7 @@ app.use(cors(options))
 
 // Подключаем rate limiter к всем запросам
 app.use(limiter)
-mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb')
+mongoose.connect(MONGO_URL)
 
 app.use(requestLogger) // подключаем логгер запросов
 
@@ -86,6 +86,6 @@ app.use((error, req, res, next) => {
   })
 })
 
-app.listen(3002, () => {
-  console.log(`Сервер запущен на ${3002} порту`)
+app.listen(PORT, () => {
+  console.log(`Сервер запущен на ${PORT} порту`)
 })
