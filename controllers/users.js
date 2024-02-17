@@ -49,6 +49,9 @@ const patchUser = async (req, res, next) => {
 }
 const login = (req, res, next) => {
   const { email, password } = req.body
+  console.log('email:', email)
+
+  console.log('password:', password)
 
   let foundUser // Объявляем переменную здесь, чтобы она была видна в обоих блоках .then
 
@@ -61,10 +64,13 @@ const login = (req, res, next) => {
       next(err)
     })
     .then((user) => {
+      console.log('user:', user)
+
       foundUser = user
       return bcrypt.compare(String(password), user.password)
     })
     .then((matched) => {
+      console.log('matched:', matched)
       if (!matched) {
         const err = new UnauthorizedError(
           'Для доступа к защищенным страницам необходимо авторизоваться.',
