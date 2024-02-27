@@ -14,10 +14,6 @@ const router = express.Router()
 // роуты логина и регистрации
 router.post(
   '/signin',
-  (req, res, next) => {
-    console.log('Received request data:', req.body) // Вывод данных в консоль
-    next() // Переход к следующему middleware (в данном случае - celebrate)
-  },
   celebrate({
     body: Joi.object().keys({
       email: Joi.string().required().min(2).max(30),
