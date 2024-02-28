@@ -37,7 +37,8 @@ const options = {
   credentials: true,
 }
 
-app.use(cors(options))
+// app.use(cors(options))
+app.use(cors()) // подключаю без опций
 
 // Подключаем rate limiter к всем запросам
 app.use(limiter)
