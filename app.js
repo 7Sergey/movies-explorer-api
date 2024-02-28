@@ -55,6 +55,7 @@ app.use(router)
 app.use(errorLogger) // подключаем логгер ошибок
 
 app.use(errors()) // обработчик ошибок Celebrate
+app.options('*', cors())
 
 // Централизованный обработчик ошибок
 // игнорируем ошибку eslint о неиспользованном аргументе
