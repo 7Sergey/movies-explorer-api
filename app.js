@@ -55,38 +55,37 @@ app.use(router)
 app.use(errorLogger) // подключаем логгер ошибок
 
 app.use(errors()) // обработчик ошибок Celebrate
-app.options('*', cors())
 
 // Централизованный обработчик ошибок
 // игнорируем ошибку eslint о неиспользованном аргументе
 // eslint-disable-next-line no-unused-vars
-app.use((error, req, res, next) => {
-  // если у ошибки нет статуса, выставляем 500
-  const { statusCode = 500, message } = error
-  // проверка на ошибки
+// app.use((error, req, res, next) => {
+//   // если у ошибки нет статуса, выставляем 500
+//   const { statusCode = 500, message } = error
+//   // проверка на ошибки
 
-  if (error.code === MONGO_DUPLICATE_ERROR_CODE) {
-    return res
-      .status(CONFLICT_ERROR_CODE)
-      .send({ message: 'Такой пользователь уже существует' })
-  }
-  if (error.name === 'CastError') {
-    return res
-      .status(CLIENT_ERROR_CODE)
-      .send({ message: 'Ошибка валидации полей' })
-  }
+//   if (error.code === MONGO_DUPLICATE_ERROR_CODE) {
+//     return res
+//       .status(CONFLICT_ERROR_CODE)
+//       .send({ message: 'Такой пользователь уже существует' })
+//   }
+//   if (error.name === 'CastError') {
+//     return res
+//       .status(CLIENT_ERROR_CODE)
+//       .send({ message: 'Ошибка валидации полей' })
+//   }
 
-  if (error.name === 'ValidationError') {
-    return res
-      .status(CLIENT_ERROR_CODE)
-      .send({ message: 'Ошибка валидации полей' })
-  }
+//   if (error.name === 'ValidationError') {
+//     return res
+//       .status(CLIENT_ERROR_CODE)
+//       .send({ message: 'Ошибка валидации полей' })
+//   }
 
-  return res.status(statusCode).send({
-    // проверяем статус и выставляем сообщение в зависимости от него
-    message: statusCode === 500 ? 'На сервере произошла ошибка' : message,
-  })
-})
+//   return res.status(statusCode).send({
+//     // проверяем статус и выставляем сообщение в зависимости от него
+//     message: statusCode === 500 ? 'На сервере произошла ошибка' : message,
+//   })
+// })
 
 app.listen(PORT, () => {
   console.log(`Сервер запущен на ${PORT} порту`)
