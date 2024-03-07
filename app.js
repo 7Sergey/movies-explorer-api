@@ -50,7 +50,7 @@ app.use(helmet())
 app.use(express.json()) // метод обогащает последующие роуты body
 app.use(cookieParser())
 console.log('до роутера')
-// app.use(router)
+app.use(router)
 console.log('после роутера')
 
 app.use(errorLogger) // подключаем логгер ошибок
