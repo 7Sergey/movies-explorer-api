@@ -6,7 +6,7 @@ const movieRouter = require('./movies')
 
 const { login, createUser } = require('../controllers/users')
 // const { auth } = require('../middlewares/auth')
-// const NotFoundError = require('../errors/not-found')
+const NotFoundError = require('../errors/not-found')
 const signoutRouter = require('./signout')
 
 const router = express.Router()
@@ -43,9 +43,9 @@ router.use('/users', userRouter)
 router.use('/movies', movieRouter)
 router.use('/signout', signoutRouter)
 
-// router.use((req, res, next) => {
-//   const err = new NotFoundError('Такой страницы не существует')
-//   next(err)
-// })
+router.use((req, res, next) => {
+  const err = new NotFoundError('Такой страницы не существует')
+  next(err)
+})
 
 module.exports = router
