@@ -11,6 +11,7 @@ const signoutRouter = require('./signout')
 
 const router = express.Router()
 
+console.log('до signin')
 // роуты логина и регистрации
 router.post(
   '/signin',
@@ -22,6 +23,7 @@ router.post(
   }),
   login,
 )
+console.log('после signin')
 
 router.post(
   '/signup',
@@ -36,7 +38,7 @@ router.post(
 )
 
 // защищенные роуты ниже
-// router.use(auth)
+router.use(auth)
 router.use('/users', userRouter)
 router.use('/movies', movieRouter)
 router.use('/signout', signoutRouter)

@@ -1,40 +1,28 @@
 const jwt = require('jsonwebtoken')
-const UnauthorizedError = require('../errors/unauthorized')
-require('dotenv').config() // Подключаем переменные окружения из файла .env
+const { UNAUTHORIZED_ERROR_CODE } = require('../constants/constants')
 
-const { JWT_SECRET, NODE_ENV } = process.env
+const { NODE_ENV, JWT_SECRET } = process.env
 
-function auth(req, res, next) {
-  console.log('JWT_SECRET:', JWT_SECRET)
-  console.log('NODE_ENV:', NODE_ENV)
-  try {
-    const authHeader = req.headers.authorization
-    console.log('authHeader:', authHeader)
-    if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      throw new UnauthorizedError('NotAuthenticate')
-    }
+module.exports = async (req, res, next) => {
+  const { authorization } = req.headers
 
-    const token = authHeader.replace('Bearer ', '')
-    console.log('token:', token)
-
-    const payload = jwt.verify(
-      token,
-      NODE_ENV !== 'production' ? JWT_SECRET : 'dev_secret',
-    )
-    console.log('payload:', payload)
-
-    req.user = payload
-    next()
-  } catch (error) {
-    if (error instanceof jwt.JsonWebTokenError) {
-      const err = new UnauthorizedError('InvalidToken')
-      next(err)
-    } else {
-      next(error)
-    }
+  if (!authorization || !authorization.startsWith('Bearer ')) {
+    return next(new UNAUTHORIZED_ERROR_CODE('Authorization required.'))
   }
-}
 
-module.exports = {
-  auth,
+  const token = authorization.replace('Bearer ', '')
+  let payload
+
+  try {
+    payload = jwt.verify(
+      token,
+      NODE_ENV === 'production' ? JWT_SECRET : 'dev-secret',
+    )
+  } catch (err) {
+    return next(new UNAUTHORIZED_ERROR_CODE('Invalid token.'))
+  }
+
+  req.user = payload
+
+  return next()
 }

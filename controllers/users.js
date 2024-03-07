@@ -47,7 +47,10 @@ const patchUser = async (req, res, next) => {
 
     .catch(next)
 }
+console.log('users.js')
 const login = (req, res, next) => {
+  console.log('в функции login')
+
   const { email, password } = req.body
   console.log('email:', email)
 
