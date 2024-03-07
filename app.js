@@ -6,7 +6,7 @@ const rateLimit = require('express-rate-limit')
 const cookieParser = require('cookie-parser')
 const cors = require('cors')
 
-// const corsMiddleware = require('./middlewares/cors') // Используем новый middleware для CORS
+mongoose.set('strictQuery', false)
 
 const { requestLogger, errorLogger } = require('./middlewares/logger')
 const router = require('./routes/router')
