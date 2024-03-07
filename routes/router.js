@@ -38,7 +38,7 @@ router.post(
 )
 
 // защищенные роуты ниже
-router.use('/', auth)
+// router.use('/', auth)
 router.use('/users', userRouter)
 router.use('/movies', movieRouter)
 router.use('/signout', signoutRouter)
